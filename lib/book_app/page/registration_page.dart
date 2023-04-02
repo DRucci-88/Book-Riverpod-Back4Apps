@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
-enum RegistrationType { genre, publisher, author }
+import 'package:parse_learning/book_app/controller/registration_controller.dart';
 
 class RegistrationPage extends ConsumerStatefulWidget {
   const RegistrationPage({
@@ -19,6 +18,10 @@ class RegistrationPage extends ConsumerStatefulWidget {
 
 class _RegistrationPageState extends ConsumerState<RegistrationPage> {
   final textCtl = TextEditingController();
+
+  void addRegistrarion() {
+    // ref.read(provider)
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -44,9 +47,8 @@ class _RegistrationPageState extends ConsumerState<RegistrationPage> {
                     ),
                   ),
                   ElevatedButton(
+                    onPressed: addRegistrarion,
                     child: const Text("ADD"),
-                    onPressed: () => '',
-                    // onPressed: addRegistration,
                   )
                 ],
               )),
