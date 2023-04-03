@@ -28,9 +28,10 @@ class _RegistrationPageState extends ConsumerState<RegistrationPage> {
   void addRegistrarion() async {
     final isSuccess =
         await ref.read(registrationControllerProvider).addRegistrationByType(
-              registrationType: widget.registrationType,
+              registrationType: registrationType,
               name: _textCtl.text.trim(),
             );
+    _textCtl.clear();
     debugPrint('Add ${registrationType.className} : $isSuccess');
   }
 
@@ -66,8 +67,9 @@ class _RegistrationPageState extends ConsumerState<RegistrationPage> {
                     textCapitalization: TextCapitalization.sentences,
                     controller: _textCtl,
                     decoration: InputDecoration(
-                        labelText: "New ${widget.registrationType.name}",
-                        labelStyle: const TextStyle(color: Colors.blue)),
+                      labelText: "New ${widget.registrationType.name}",
+                      labelStyle: const TextStyle(color: Colors.blue),
+                    ),
                   ),
                 ),
                 ElevatedButton(

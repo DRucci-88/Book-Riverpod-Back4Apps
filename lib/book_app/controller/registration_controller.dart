@@ -7,6 +7,7 @@ import 'package:parse_learning/book_app/model/author_model.dart';
 import 'package:parse_learning/book_app/model/genre_model.dart';
 import 'package:parse_learning/book_app/model/publisher_model.dart';
 import 'package:parse_learning/book_app/service/registration_service.dart';
+import 'package:parse_server_sdk_flutter/parse_server_sdk_flutter.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'registration_controller.g.dart';
 
@@ -53,6 +54,23 @@ class RegistrationController {
     final res = await registrationService.add(registrationType, name);
     if (!res.success || res.results == null) {
       return false;
+    }
+
+    if (registrationType == RegistrationType.author) {
+      final author = AuthorModel.fromParseObject(
+        res.results![0] as ParseObject,
+      );
+      ref.read(authorControllerProvider.notifier).add(author);
+    } else if (registrationType == RegistrationType.genre) {
+      final genre = GenreModel.fromParseObject(
+        res.results![0] as ParseObject,
+      );
+      ref.read(genreControllerProvider.notifier).add(genre);
+    } else if (registrationType == RegistrationType.publisher) {
+      final publisher = PublisherModel.fromParseObject(
+        res.results![0] as ParseObject,
+      );
+      ref.read(publisherControllerProvider.notifier).add(publisher);
     }
     return true;
   }
