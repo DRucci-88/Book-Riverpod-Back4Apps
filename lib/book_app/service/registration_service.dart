@@ -19,4 +19,16 @@ class RegistrationService {
     final res = ParseObject(registrationType.className)..set('name', name);
     return await res.save();
   }
+
+  Future<List<ParseObject>> gets(
+    RegistrationType registrationType,
+  ) async {
+    final queryRegistration =
+        QueryBuilder(ParseObject(registrationType.className));
+    final apiResponse = await queryRegistration.query();
+    if (!apiResponse.success || apiResponse.results == null) {
+      return [];
+    }
+    return apiResponse.results as List<ParseObject>;
+  }
 }

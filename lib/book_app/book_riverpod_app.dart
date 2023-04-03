@@ -13,6 +13,15 @@ class BookRiverpodApp extends ConsumerStatefulWidget {
 
 class _BookRiverpodAppState extends ConsumerState<BookRiverpodApp> {
   @override
+  void initState() {
+    super.initState();
+    ref
+        .read(registrationControllerProvider)
+        .fetchAllRegistration()
+        .then((value) => debugPrint('fetchAllRegistration: $value'));
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
