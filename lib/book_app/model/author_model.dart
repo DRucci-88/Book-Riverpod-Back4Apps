@@ -1,6 +1,3 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'dart:convert';
-
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:parse_server_sdk_flutter/parse_server_sdk_flutter.dart';
 
@@ -39,6 +36,13 @@ import 'package:parse_learning/book_app/model/registration_model.dart';
 @immutable
 class AuthorModel extends RegistrationModel {
   const AuthorModel({required super.objectId, required super.name});
+
+  factory AuthorModel.fromRegisterModel(RegistrationModel model) {
+    return AuthorModel(
+      objectId: model.objectId,
+      name: model.name,
+    );
+  }
 
   factory AuthorModel.fromParseObject(ParseObject parseObject) {
     return AuthorModel(

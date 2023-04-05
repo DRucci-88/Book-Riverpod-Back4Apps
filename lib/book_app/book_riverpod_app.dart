@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:parse_learning/book_app/page/book_page.dart';
 import 'package:parse_learning/book_app/page/registration_page.dart';
 import 'package:parse_learning/book_app/controller/registration_controller.dart';
 
@@ -107,10 +108,10 @@ class _BookRiverpodAppState extends ConsumerState<BookRiverpodApp> {
                     backgroundColor: Colors.blue),
                 child: const Text('Add Book'),
                 onPressed: () {
-                  // Navigator.push(
-                  //   context,
-                  //   MaterialPageRoute(builder: (context) => BookPage()),
-                  // );
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const BookPage()),
+                  );
                 },
               ),
             ),

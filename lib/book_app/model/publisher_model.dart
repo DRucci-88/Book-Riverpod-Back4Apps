@@ -24,6 +24,13 @@ import 'package:parse_server_sdk_flutter/parse_server_sdk_flutter.dart';
 class PublisherModel extends RegistrationModel {
   const PublisherModel({required super.objectId, required super.name});
 
+  factory PublisherModel.fromRegisterModel(RegistrationModel model) {
+    return PublisherModel(
+      objectId: model.objectId,
+      name: model.name,
+    );
+  }
+
   factory PublisherModel.fromParseObject(ParseObject parseObject) {
     return PublisherModel(
       objectId: parseObject.get<String>('objectId')!,

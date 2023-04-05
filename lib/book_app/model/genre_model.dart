@@ -24,6 +24,13 @@ import 'package:parse_server_sdk_flutter/parse_server_sdk_flutter.dart';
 class GenreModel extends RegistrationModel {
   const GenreModel({required super.objectId, required super.name});
 
+  factory GenreModel.fromRegisterModel(RegistrationModel model) {
+    return GenreModel(
+      objectId: model.objectId,
+      name: model.name,
+    );
+  }
+
   factory GenreModel.fromParseObject(ParseObject parseObject) {
     return GenreModel(
         objectId: parseObject.get<String>('objectId')!,

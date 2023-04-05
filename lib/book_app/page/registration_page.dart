@@ -5,7 +5,6 @@ import 'package:parse_learning/book_app/controller/author_controller.dart';
 import 'package:parse_learning/book_app/controller/genre_controller.dart';
 import 'package:parse_learning/book_app/controller/publisher_controller.dart';
 import 'package:parse_learning/book_app/controller/registration_controller.dart';
-import 'package:parse_learning/book_app/model/author_model.dart';
 import 'package:parse_learning/book_app/model/registration_model.dart';
 
 class RegistrationPage extends ConsumerStatefulWidget {
@@ -50,6 +49,7 @@ class _RegistrationPageState extends ConsumerState<RegistrationPage> {
     for (int i = 0; i < registrationList.length; i++) {
       debugPrint(registrationList[i].toString());
     }
+
     return Scaffold(
       appBar: AppBar(
         title: Text('New ${registrationType.name}'),
