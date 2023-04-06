@@ -18,10 +18,30 @@ class BookListPage extends ConsumerWidget {
       body: ListView.builder(
         itemCount: publishers.length,
         itemBuilder: (context, index) {
+          final books = ref
+              .watch(getBooksByPublisherProvider(publishers[index].objectId));
           return ExpansionTile(
             title: Text(publishers[index].name),
             children: [
-              BookTileWidget(publisherId: publishers[index].objectId),
+              books.when(
+                data: (data) {
+                  return BookTileWidget(books: data);
+                },
+                error: (error, stackTrace) {
+                  return const Center(
+                    child: Text("Error..."),
+                  );
+                },
+                loading: () {
+                  return const Center(
+                    child: SizedBox(
+                      width: 100,
+                      height: 100,
+                      child: CircularProgressIndicator(),
+                    ),
+                  );
+                },
+              )
             ],
           );
         },
