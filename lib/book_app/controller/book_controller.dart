@@ -42,9 +42,16 @@ class BookController extends _$BookController {
     required String year,
     required String genreId,
     required String publisherId,
+    required List<String> authorsId,
   }) async {
     state = const AsyncValue.loading();
-    final res = await bookService.add(title, year, genreId, publisherId);
+    final res = await bookService.add(
+      title,
+      year,
+      genreId,
+      publisherId,
+      authorsId,
+    );
     if (!res.success || res.results == null) {
       return false;
     }

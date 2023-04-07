@@ -4,15 +4,22 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:parse_server_sdk_flutter/parse_server_sdk_flutter.dart';
 
+import 'package:parse_learning/book_app/model/genre_model.dart';
+import 'package:parse_learning/book_app/model/publisher_model.dart';
+
 @immutable
 class BookModel {
   final String objectId;
   final String title;
   final String year;
+  final GenreModel genre;
+  final PublisherModel publisher;
   const BookModel({
     required this.objectId,
     required this.title,
     required this.year,
+    required this.genre,
+    required this.publisher,
   });
 
   factory BookModel.fromParseObject(ParseObject parseObject) {
@@ -20,6 +27,12 @@ class BookModel {
       objectId: parseObject.get<String>('objectId')!,
       title: parseObject.get<String>('title')!,
       year: parseObject.get<String>('year')!,
+      genre: GenreModel.fromParseObject(
+        parseObject.get<ParseObject>('genre')!,
+      ),
+      publisher: PublisherModel.fromParseObject(
+        parseObject.get<ParseObject>('publisher')!,
+      ),
     );
   }
 
@@ -27,11 +40,15 @@ class BookModel {
     String? objectId,
     String? title,
     String? year,
+    GenreModel? genre,
+    PublisherModel? publisher,
   }) {
     return BookModel(
       objectId: objectId ?? this.objectId,
       title: title ?? this.title,
       year: year ?? this.year,
+      genre: genre ?? this.genre,
+      publisher: publisher ?? this.publisher,
     );
   }
 
@@ -40,25 +57,31 @@ class BookModel {
       'objectId': objectId,
       'title': title,
       'year': year,
+      'genre': genre.toMap(),
+      'publisher': publisher.toMap(),
     };
   }
 
-  factory BookModel.fromMap(Map<String, dynamic> map) {
-    return BookModel(
-      objectId: map['objectId'] as String,
-      title: map['title'] as String,
-      year: map['year'] as String,
-    );
-  }
+  // factory BookModel.fromMap(Map<String, dynamic> map) {
+  //   return BookModel(
+  //     objectId: map['objectId'] as String,
+  //     title: map['title'] as String,
+  //     year: map['year'] as String,
+  //     genre: GenreModel.fromMap(map['genre'] as Map<String, dynamic>),
+  //     publisher:
+  //         PublisherModel.fromMap(map['publisher'] as Map<String, dynamic>),
+  //   );
+  // }
 
   String toJson() => json.encode(toMap());
 
-  factory BookModel.fromJson(String source) =>
-      BookModel.fromMap(json.decode(source) as Map<String, dynamic>);
+  // factory BookModel.fromJson(String source) =>
+  //     BookModel.fromMap(json.decode(source) as Map<String, dynamic>);
 
   @override
-  String toString() =>
-      'BookModel(objectId: $objectId, title: $title, year: $year)';
+  String toString() {
+    return 'BookModel(objectId: $objectId, title: $title, year: $year, genre: $genre, publisher: $publisher)';
+  }
 
   @override
   bool operator ==(covariant BookModel other) {
@@ -66,9 +89,17 @@ class BookModel {
 
     return other.objectId == objectId &&
         other.title == title &&
-        other.year == year;
+        other.year == year &&
+        other.genre == genre &&
+        other.publisher == publisher;
   }
 
   @override
-  int get hashCode => objectId.hashCode ^ title.hashCode ^ year.hashCode;
+  int get hashCode {
+    return objectId.hashCode ^
+        title.hashCode ^
+        year.hashCode ^
+        genre.hashCode ^
+        publisher.hashCode;
+  }
 }

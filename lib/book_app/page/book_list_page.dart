@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:parse_learning/book_app/controller/book_controller.dart';
 import 'package:parse_learning/book_app/controller/publisher_controller.dart';
-import 'package:parse_learning/book_app/page/book_tile_widget.dart';
+import 'package:parse_learning/book_app/widget/book_tile_widget.dart';
 
 class BookListPage extends ConsumerWidget {
   const BookListPage({super.key});

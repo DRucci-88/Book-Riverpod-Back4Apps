@@ -6,10 +6,9 @@ import 'package:parse_learning/book_app/controller/genre_controller.dart';
 import 'package:parse_learning/book_app/controller/publisher_controller.dart';
 import 'package:parse_learning/book_app/controller/registration_controller.dart';
 import 'package:parse_learning/book_app/model/author_model.dart';
-import 'package:parse_learning/book_app/model/book_model.dart';
 import 'package:parse_learning/book_app/model/genre_model.dart';
 import 'package:parse_learning/book_app/model/publisher_model.dart';
-import 'package:parse_learning/book_app/page/check_box_group_widget.dart';
+import 'package:parse_learning/book_app/widget/check_box_group_widget.dart';
 
 class BookPage extends ConsumerStatefulWidget {
   const BookPage({super.key});
@@ -117,6 +116,7 @@ class _BookPageState extends ConsumerState<BookPage> {
           year: _yearCtl.text.trim(),
           genreId: genre!.objectId,
           publisherId: publisher!.objectId,
+          authorsId: authors.map((e) => e.objectId).toList(),
         );
   }
 

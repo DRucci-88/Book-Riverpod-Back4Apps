@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:parse_learning/book_app/controller/registration_controller.dart';
 import 'package:parse_server_sdk_flutter/parse_server_sdk_flutter.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -16,6 +17,7 @@ class BookService {
     String year,
     String genreId,
     String publisherId,
+    List<String> authorsId,
   ) {
     final res = ParseObject(className)
       ..set('title', title)
@@ -28,6 +30,10 @@ class BookService {
         'publisher',
         ParseObject(RegistrationType.publisher.className)
           ..objectId = publisherId,
+      )
+      ..addRelation(
+        'authors',
+        authorsId.map((e) => ParseObject('Author')..objectId = e).toList(),
       );
     return res.save();
   }
@@ -40,10 +46,15 @@ class BookService {
               ..objectId = publisherId)
             .toPointer(),
       )
+      ..includeObject(['publisher', 'genre'])
       ..orderByAscending('title');
     final apiRes = await queryBook.query();
     if (!apiRes.success || apiRes.results == null) {
       return [];
+    }
+    for (int i = 0; i < apiRes.results!.length; i++) {
+      debugPrint(
+          apiRes.results![i].get<ParseObject>('genre').get<String>('name'));
     }
     return apiRes.results as List<ParseObject>;
   }
