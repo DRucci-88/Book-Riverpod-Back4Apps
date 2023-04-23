@@ -21,6 +21,7 @@ void main() async {
     debug: true,
   );
 
+  debugPrint('Test Push');
   // ParseObject firstObject = ParseObject('FirstClass')
   //   ..set('message', 'Hey first message. Parse is now connected');
   // // firstObject.f
